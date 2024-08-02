@@ -1,0 +1,55 @@
+.mainKitchen {
+  display: flex;
+  height: 60vh;
+}
+
+.KitchenText {
+  display: flex;
+  flex: 50;
+  width: 50%;
+  padding: 10%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.KitchenText h2 {
+  font-size: 36px;
+  color: var(--Borange);
+  font-family: "Titan One", sans-serif;
+  font-weight: 400;
+}
+
+.KitchenText p {
+  color: var(--Bmarron);
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: start;
+  padding: 0 0 0 11%;
+  margin-bottom: 30px;
+}
+
+.KitchenText ul {
+  color: var(--Bmarron);
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 600;
+  text-align: start;
+  margin-right: 100px;
+}
+
+.videoContainer {
+  width: 50%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.videoContainer video {
+  width: 500px;
+}
+
+.yellowDiv {
+  height: 17vh;
+  background-color: var(--yellow300);
+}

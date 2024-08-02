@@ -1,0 +1,19 @@
+:root {
+  --yellow300: #fbaa1b;
+  --Bmarron: #601706;
+  --Borange: #ed5007;
+  --orange300: #ff5722;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+  line-height: 1.42857143;
+}
+
+h2,
+h3 {
+  margin: 0;
+}

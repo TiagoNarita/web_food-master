@@ -1,0 +1,19 @@
+.buttonFrete p {
+  font-size: 17px;
+  margin: 10px;
+  color: rgba(55, 65, 81, 1);
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+}
+
+.mapIcon {
+  color: rgba(107, 114, 128, 1);
+  padding-top: 4px;
+  font-size: 27px;
+}
+
+.arrowIcon {
+  color: var(--Bmarron);
+  padding-top: 2px;
+  font-size: 33px;
+}

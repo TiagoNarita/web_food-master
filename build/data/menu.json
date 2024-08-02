@@ -1,0 +1,32 @@
+[
+  {
+    "image": "/images/xSalada.webp",
+    "title": "Smash Salad",
+    "description": "Delicie-se com um hambúrguer smash de 70g, coberto com queijo mussarela derretido e uma salada crocante de alface americana e tomate. Servido em um macio pão brioche com molho barbecue e nossa exclusiva maionese caseira.",
+    "price": "R$ 25,00"
+  },
+  {
+    "image": "/images/smash-burger-perfeito.webp",
+    "title": "Smash Beat 2.0",
+    "description": "Aprecie um hambúrguer com duas carnes smash de 140g, cobertas com queijo cheddar derretido e bacon crocante. Tudo isso em um pão brioche selado com manteiga, acompanhado de molho barbecue e nossa maionese especial.",
+    "price": "R$ 30,00"
+  },
+  {
+    "image": "/images/bigMac.png",
+    "title": "Classic Burger",
+    "description": "Um hambúrguer clássico com carne bovina (150g), queijo cheddar, alface, tomate e cebola roxa, servido em um pão brioche tostado. Um sabor tradicional que nunca sai de moda e agrada a todos os paladares.",
+    "price": "R$ 28,00"
+  },
+  {
+    "image": "/images/cheder.avif",
+    "title": "BBQ Bacon Burger",
+    "description": "Hambúrguer com carne bovina (180g), queijo cheddar, bacon crocante, cebolas caramelizadas e molho barbecue, servido em um pão de batata. Uma explosão de sabores defumados e textura irresistível.",
+    "price": "R$ 35,00"
+  },
+  {
+    "image": "/images/duplo.avif",
+    "title": "Vegetariano",
+    "description": "Hambúrguer vegetariano com um saboroso bolinho de grão de bico, alface, tomate, cebola roxa e molho de iogurte, servido em um pão integral. Uma opção saudável e deliciosa, repleta de frescor e sabor.",
+    "price": "R$ 26,00"
+  }
+]

@@ -1,0 +1,17 @@
+.App-social-media {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.social-icon {
+  margin-top: 30px;
+  color: var(--Bmarron);
+  font-size: 40px;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: white;
+}
