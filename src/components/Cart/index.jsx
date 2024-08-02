@@ -7,7 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Box, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
-import StorefrontIcon from "@mui/icons-material/Storefront";
+import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 
 export const Cart = ({
   cart,
@@ -28,6 +28,10 @@ export const Cart = ({
     setAnchorEl(null);
   };
 
+  const HandleMenuClick = (option) => {
+    console.log(option);
+    handleClose();
+  };
   return (
     <div className="cart">
       <button
@@ -53,15 +57,23 @@ export const Cart = ({
         <Box px={2} py={1}>
           <Typography variant="subtitle1">Como você deseja receber o pedido?</Typography>
         </Box>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            HandleMenuClick("Entrega");
+          }}
+        >
           <ListItemIcon>
-            <DeliveryDiningIcon fontSize="small" />
+            <DeliveryDiningIcon />
           </ListItemIcon>
           <ListItemText primary="Entrega" secondary="A gente leva até você" />
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            HandleMenuClick("Retirada");
+          }}
+        >
           <ListItemIcon>
-            <StorefrontIcon fontSize="small" />
+            <DirectionsWalkIcon />
           </ListItemIcon>
           <ListItemText primary="Retirada" secondary="Você retira no local" />
         </MenuItem>
