@@ -10,6 +10,13 @@
   height: 26vh;
 }
 
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
 .header-cardapio h2 {
   font-family: "Titan One", sans-serif;
   font-weight: 400;

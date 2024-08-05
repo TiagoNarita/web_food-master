@@ -4,6 +4,8 @@ import "./styles.css";
 import { Footer } from "../../components/Footer";
 import { database } from "../../utils/firebase";
 import { get, ref } from "firebase/database";
+import { Loader } from "../../components/Loader";
+import { Box, CircularProgress } from "@mui/material";
 
 export const Cardapio = () => {
   const [burgers, setBurgers] = useState([]);
@@ -27,27 +29,35 @@ export const Cardapio = () => {
 
   return (
     <div className="App-cardapio">
-      <div>
-        <header className="header-cardapio">
-          <h2>OS FAMOSOS HAMBÚRGUERES</h2>
-          <h3>Conheças os hambúrgueres da nossa casa</h3>
-        </header>
-      </div>
-      <img src={"/images/footer.webp"} alt="Burger" className="footer-burguer"></img>
-      <div className="cardapio">
-        {burgers.map((burger, index) => (
-          <div key={index} className="burger-item">
-            <img src={burger.image} alt={burger.title} className="burger-image" />
-            <div className="burger-content-desc">
-              <h2 className="burger-title">{burger.title}</h2>
-              <p className="burger-description">{burger.description}</p>
-            </div>
-            <p className="burger-price">{burger.price}</p>
+      {burgers.length == 0 ? (
+        <div className="loaderContainer">
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <div>
+            <header className="header-cardapio">
+              <h2>OS FAMOSOS HAMBÚRGUERES</h2>
+              <h3>Conheças os hambúrgueres da nossa casa</h3>
+            </header>
+            <img src={"/images/footer.webp"} alt="Burger" className="footer-burguer"></img>
           </div>
-        ))}
-      </div>
-      <div className="beforee-footer"></div>
-      <Footer />
+          <div className="cardapio">
+            {burgers.map((burger, index) => (
+              <div key={index} className="burger-item">
+                <img src={burger.image} alt={burger.title} className="burger-image" />
+                <div className="burger-content-desc">
+                  <h2 className="burger-title">{burger.title}</h2>
+                  <p className="burger-description">{burger.description}</p>
+                </div>
+                <p className="burger-price">{burger.price}</p>
+              </div>
+            ))}
+          </div>
+          <div className="beforee-footer"></div>
+          <Footer />
+        </>
+      )}
     </div>
   );
 };
