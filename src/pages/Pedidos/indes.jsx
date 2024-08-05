@@ -7,10 +7,11 @@ import { BurguerCard } from "../../components/BurguerCard";
 import { Cart } from "../../components/Cart";
 import { database } from "../../utils/firebase";
 import { get, ref } from "firebase/database";
+import { Loader } from "../../components/Loader";
 
 const Header = () => {
   return (
-    <div>
+    <div className="headerContainer">
       <header className="header-pedidos">
         <h2>FAÇA SEU PEDIDO AQUI</h2>
         <h3>EXPERIMENTE E SE APAIXONE PELA BURGUER HOUSE</h3>
@@ -109,11 +110,17 @@ const Pedidos = () => {
     <div className="App-pedidos">
       <Header />
       <div className="pedidos-content">
-        <div className="burgersListCart">
-          {burgers.map((burger, index) => (
-            <BurguerCard key={index} burger={burger} addToCart={addToCart} />
-          ))}
-        </div>
+        {burgers.length == 0 ? (
+          <div className="loaderContain">
+            <Loader />
+          </div>
+        ) : (
+          <div className="burgersListCart">
+            {burgers.map((burger, index) => (
+              <BurguerCard key={index} burger={burger} addToCart={addToCart} />
+            ))}
+          </div>
+        )}
         <div className="cartCont">
           <Cart
             cart={cart}
