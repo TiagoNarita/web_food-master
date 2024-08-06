@@ -7,6 +7,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import "./styles.css";
 
 export const HeaderPedidos = () => {
+  const handleLogin = () => {
+    console.log("oi");
+  };
+
   return (
     <div className="headerContain">
       <div className="navContainer">
@@ -18,18 +22,18 @@ export const HeaderPedidos = () => {
         </Link>
         <Link to="/promocoes" className="navLink">
           <button className="navButton">
-            <LocalOfferIcon />
-            <span>Promoções</span>
+            <ShoppingCartIcon />
+            <span>Pedidos</span>
           </button>
         </Link>
         <Link to="/pedidos" className="navLink">
           <button className="navButton">
             <ShoppingCartIcon />
-            <span>Pedidos</span>
+            <span>Fale conosco</span>
           </button>
         </Link>
         <Link to="/entrar" className="navLink">
-          <button className="navButton">
+          <button className="navButton" onClick={handleLogin}>
             <PersonIcon />
             <span>Entrar/Cadastrar</span>
           </button>
