@@ -1,3 +1,4 @@
+/* Estilos gerais do cabeçalho */
 .headerContain {
   position: fixed;
   display: flex;
@@ -5,13 +6,12 @@
   justify-content: center;
   top: 0;
   width: 100%;
-  background-color: #f5ebdc;
+  background-color: #5c1302;
   padding: 20px;
   box-shadow: 0px 4px 2px -2px gray;
   z-index: 1000;
-  box-shadow: 0px 1px 10px 0px rgb(0 0 0 / 30%);
   height: 81px;
-  background-color: #5c1302;
+  box-shadow: 0px 1px 10px 0px rgb(0 0 0 / 30%);
 }
 
 .navContainer {
@@ -30,7 +30,6 @@
   cursor: pointer;
   background: none;
   border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   color: #fff;
@@ -48,25 +47,124 @@
   border: 1px solid #fff;
 }
 
-.modalOverlay {
+.dialogTitle {
+  font-weight: bold;
+  text-align: center;
+  padding: 16px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: #888;
+}
+
+.dialogContent {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialogContent .MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.cancelButton {
+  color: #5c1302;
+}
+
+.updateButton {
+  background-color: #5c1302;
+  color: white;
+}
+
+.updateButton:hover {
+  background-color: #451001;
+}
+/* Estilos gerais do cabeçalho */
+.headerContain {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  top: 0;
+  width: 100%;
+  background-color: #5c1302;
+  padding: 20px;
+  box-shadow: 0px 4px 2px -2px gray;
+  z-index: 1000;
+  height: 81px;
+  box-shadow: 0px 1px 10px 0px rgb(0 0 0 / 30%);
 }
 
-.modalContent {
-  background: #fff;
+.navContainer {
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+}
+
+.navButton {
+  cursor: pointer;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 7px;
+  border-radius: 7px;
+}
+
+.navButton span {
+  margin-left: 5px;
+}
+
+.navButton:hover {
+  border: 1px solid #fff;
+}
+
+.dialogTitle {
+  font-weight: bold;
+  text-align: center;
+  padding: 16px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: #888;
+}
+
+.dialogContent {
   padding: 20px;
-  border-radius: 4px;
-  max-width: 336px;
-  height: 548px;
-  width: 100%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.dialogContent .MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.cancelButton {
+  color: #5c1302;
+}
+
+.updateButton {
+  background-color: #5c1302;
+  color: white;
+}
+
+.updateButton:hover {
+  background-color: #451001;
 }
