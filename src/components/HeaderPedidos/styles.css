@@ -50,6 +50,9 @@
 .dialogTitle {
   font-weight: bold;
   text-align: center;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 22px;
+  color: #374151;
   padding: 16px;
   position: relative;
 }
@@ -167,4 +170,10 @@
 
 .updateButton:hover {
   background-color: #451001;
+}
+
+.divCloseButton {
+  display: flex;
+  padding: 4px;
+  justify-content: flex-end;
 }

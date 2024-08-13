@@ -168,9 +168,9 @@
   border-radius: 0.375rem;
   color: white;
   background-color: var(--Bmarron);
+
   border: 0;
   font-weight: 500;
-  font-family: sans-serif;
   font-size: 100%;
 }
 
@@ -319,6 +319,8 @@
 
 .footerDiv {
   margin: 0;
+  padding: 30px;
+  height: 10vh;
   background-color: var(--yellow300);
 }
 .price {

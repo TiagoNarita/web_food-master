@@ -5,23 +5,16 @@ import { IMaskInput } from "react-imask";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import PropTypes from "prop-types";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  IconButton,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogActions, TextField, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./styles.css";
-
+//
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
   const { onChange, ...other } = props;
   return (
     <IMaskInput
       {...other}
-      mask="(#00) 000-0000"
+      mask="(#0) 00000-0000"
       definitions={{
         "#": /[1-9]/,
       }}
@@ -38,6 +31,18 @@ TextMaskCustom.propTypes = {
 };
 
 export const HeaderPedidos = () => {
+  const [values, setValues] = React.useState({
+    textmask: "",
+  });
+
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  //mui
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -76,17 +81,17 @@ export const HeaderPedidos = () => {
       </div>
 
       <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
-        <DialogTitle className="dialogTitle">
-          Cadastro
+        <div className="divCloseButton">
           <IconButton aria-label="close" onClick={handleClose} className="closeButton">
             <CloseIcon />
           </IconButton>
-        </DialogTitle>
+        </div>
+        <h2 className="dialogTitle">Cadastro</h2>
         <DialogContent className="dialogContent" style={{ padding: "20px" }}>
           <TextField
             sx={{
               width: "90%",
-              margin: "0 auto",
+              margin: "8px auto",
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
                   borderColor: "#5c1302", // Cor da borda quando focado
@@ -96,18 +101,22 @@ export const HeaderPedidos = () => {
                 color: "#5c1302", // Cor do label quando focado
               },
             }}
-            autoFocus
-            margin="dense"
             label="Telefone"
             placeholder="(00) 90000-0000"
-            type="text"
+            value={values.textmask}
+            onChange={handleChange}
+            name="textmask"
+            id="formatted-text-mask-input"
+            InputProps={{
+              inputComponent: TextMaskCustom,
+            }}
             fullWidth
             variant="outlined"
           />
           <TextField
             sx={{
               width: "90%",
-              margin: "0 auto",
+              margin: "8px auto",
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
                   borderColor: "#5c1302", // Cor da borda quando focado
@@ -119,6 +128,7 @@ export const HeaderPedidos = () => {
             }}
             margin="dense"
             label="Seu nome *"
+            placeholder="Informe seu Nome e sobrenome"
             type="text"
             fullWidth
             variant="outlined"
@@ -126,12 +136,13 @@ export const HeaderPedidos = () => {
           <TextField
             margin="dense"
             label="E-mail"
+            placeholder="Informe seu e-mail"
             type="email"
             fullWidth
             variant="outlined"
             sx={{
               width: "90%",
-              margin: "0 auto",
+              margin: "8px auto",
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
                   borderColor: "#5c1302", // Cor da borda quando focado
@@ -145,7 +156,7 @@ export const HeaderPedidos = () => {
           <TextField
             sx={{
               width: "90%",
-              margin: "0 auto",
+              margin: "8px auto",
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
                   borderColor: "#5c1302", // Cor da borda quando focado
@@ -164,36 +175,15 @@ export const HeaderPedidos = () => {
             }}
             variant="outlined"
           />
-          <TextField
-            sx={{
-              width: "90%",
-              margin: "0 auto",
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#5c1302", // Cor da borda quando focado
-                },
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#5c1302", // Cor do label quando focado
-              },
-            }}
-            margin="dense"
-            label="Gênero"
-            select
-            fullWidth
-            variant="outlined"
-            SelectProps={{
-              native: true,
-            }}
-          >
-            <option value="" />
-            <option value="male">Masculino</option>
-            <option value="female">Feminino</option>
-            <option value="other">Outro</option>
-          </TextField>
+          <div>
+            <a href="">Já possui cadastro?</a>
+          </div>
         </DialogContent>
+
         <DialogActions style={{ padding: "0px 20px 20px" }}>
-          <button className="buttonBag">Fazer Pedido</button>
+          <button onClick={handleCadastrar} className="buttonBag">
+            Fazer Cadastro
+          </button>
         </DialogActions>
       </Dialog>
     </div>
