@@ -31,18 +31,22 @@ TextMaskCustom.propTypes = {
 };
 
 export const HeaderPedidos = () => {
+  //mui masks
   const [values, setValues] = React.useState({
-    textmask: "",
+    phoneNumber: "",
+    name: "",
+    email: "",
+    birthday: "",
   });
 
   const handleChange = (event) => {
+    console.log(event.target.value);
     setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
   };
-
-  //mui
+  //functions
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -51,6 +55,13 @@ export const HeaderPedidos = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCadastrar = () => {
+    if (!values.name || !values.birthday || !values.phoneNumber || !values.email) {
+      console.log("nao entrei");
+    }
+    console.log(values);
   };
 
   return (
@@ -80,6 +91,7 @@ export const HeaderPedidos = () => {
         </button>
       </div>
 
+      {/* dialog cadastrar */}
       <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
         <div className="divCloseButton">
           <IconButton aria-label="close" onClick={handleClose} className="closeButton">
@@ -103,9 +115,9 @@ export const HeaderPedidos = () => {
             }}
             label="Telefone"
             placeholder="(00) 90000-0000"
-            value={values.textmask}
+            value={values.phoneNumber}
             onChange={handleChange}
-            name="textmask"
+            name="phoneNumber"
             id="formatted-text-mask-input"
             InputProps={{
               inputComponent: TextMaskCustom,
@@ -129,6 +141,9 @@ export const HeaderPedidos = () => {
             margin="dense"
             label="Seu nome *"
             placeholder="Informe seu Nome e sobrenome"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
             type="text"
             fullWidth
             variant="outlined"
@@ -137,6 +152,9 @@ export const HeaderPedidos = () => {
             margin="dense"
             label="E-mail"
             placeholder="Informe seu e-mail"
+            value={values.email}
+            onChange={handleChange}
+            name="email"
             type="email"
             fullWidth
             variant="outlined"
@@ -167,7 +185,10 @@ export const HeaderPedidos = () => {
               },
             }}
             margin="dense"
+            value={values.birthday}
+            onChange={handleChange}
             label="Data de nascimento"
+            name="birthday"
             type="date"
             fullWidth
             InputLabelProps={{
