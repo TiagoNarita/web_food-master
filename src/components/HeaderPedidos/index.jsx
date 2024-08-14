@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import { IMaskInput } from "react-imask";
@@ -8,7 +8,11 @@ import PropTypes from "prop-types";
 import { Dialog, DialogContent, DialogActions, TextField, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./styles.css";
-//
+import { toast } from "react-toastify";
+import { database } from "../../utils/firebase";
+import { ref, push } from "firebase/database"; // Importa funções necessárias
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../utils/firebase";
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
   const { onChange, ...other } = props;
   return (
@@ -31,23 +35,22 @@ TextMaskCustom.propTypes = {
 };
 
 export const HeaderPedidos = () => {
-  //mui masks
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     phoneNumber: "",
     name: "",
     email: "",
-    birthday: "",
+    senha: "",
   });
+  const [user, setUser] = useState({});
+  const [open, setOpen] = useState(false); // Estado para o modal de cadastro
+  const [openLogin, setOpenLogin] = useState(false); // Estado para o modal de login
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
   };
-  //functions
-  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,11 +60,70 @@ export const HeaderPedidos = () => {
     setOpen(false);
   };
 
+  const handleCloseLogin = () => {
+    setOpenLogin(false);
+  };
+
   const handleCadastrar = () => {
-    if (!values.name || !values.birthday || !values.phoneNumber || !values.email) {
-      console.log("nao entrei");
+    if (!values.name || !values.senha || !values.phoneNumber || !values.email) {
+      toast.error("Preencha todas as informações !", {
+        position: "top-center",
+        theme: "colored",
+      });
+    } else {
+      const usersRef = ref(database, "users");
+      console.log(values);
+      push(usersRef, {
+        phoneNumber: values.phoneNumber,
+        name: values.name,
+        email: values.email,
+        senha: values.senha,
+      })
+        .then(() => {
+          toast.success("Cadastro realizado com sucesso!");
+          setUser(values);
+          setValues({
+            phoneNumber: "",
+            name: "",
+            email: "",
+            senha: "",
+          });
+          setOpen(false);
+          console.log(user);
+        })
+        .catch((error) => {
+          toast.error("Erro ao cadastrar usuário: " + error.message);
+        });
     }
+  };
+
+  const handleLogin = () => {
     console.log(values);
+    const { email, senha } = values;
+
+    signInWithEmailAndPassword(auth, email, senha)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Login bem-sucedido:", user);
+        toast.success("Login bem-sucedido!");
+        setUser(user);
+        setOpenLogin(false);
+      })
+      .catch((error) => {
+        console.error("Erro ao fazer login:", error);
+        toast.error("Email ou senha inválidos");
+      });
+  };
+
+  const handleOpenLoginModal = () => {
+    setOpen(false); // Fecha o modal de cadastro
+    setOpenLogin(true); // Abre o modal de login
+    setValues({
+      phoneNumber: "",
+      name: "",
+      email: "",
+      senha: "",
+    });
   };
 
   return (
@@ -85,13 +147,20 @@ export const HeaderPedidos = () => {
             <span>Fale conosco</span>
           </button>
         </Link>
-        <button className="navButton" onClick={handleClickOpen}>
-          <PersonIcon />
-          <span>Entrar/Cadastrar</span>
-        </button>
+        {!user.name ? (
+          <button className="navButton" onClick={handleClickOpen}>
+            <PersonIcon />
+            <span>Entrar/Cadastrar</span>
+          </button>
+        ) : (
+          <button className="navButton">
+            <PersonIcon />
+            <span>Minha conta</span>
+          </button>
+        )}
       </div>
 
-      {/* dialog cadastrar */}
+      {/* Modal de Cadastro */}
       <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
         <div className="divCloseButton">
           <IconButton aria-label="close" onClick={handleClose} className="closeButton">
@@ -185,11 +254,12 @@ export const HeaderPedidos = () => {
               },
             }}
             margin="dense"
-            value={values.birthday}
+            value={values.senha}
             onChange={handleChange}
-            label="Data de nascimento"
-            name="birthday"
-            type="date"
+            label="Senha"
+            name="senha"
+            placeholder="Informe sua senha"
+            type="password"
             fullWidth
             InputLabelProps={{
               shrink: true,
@@ -197,13 +267,77 @@ export const HeaderPedidos = () => {
             variant="outlined"
           />
           <div>
-            <a href="">Já possui cadastro?</a>
+            <a href="#" onClick={handleOpenLoginModal}>
+              Já possui cadastro?
+            </a>
           </div>
         </DialogContent>
 
         <DialogActions style={{ padding: "0px 20px 20px" }}>
           <button onClick={handleCadastrar} className="buttonBag">
             Fazer Cadastro
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Modal de Login */}
+      <Dialog open={openLogin} onClose={handleCloseLogin} maxWidth="xs" fullWidth>
+        <div className="divCloseButton">
+          <IconButton aria-label="close" onClick={handleCloseLogin} className="closeButton">
+            <CloseIcon />
+          </IconButton>
+        </div>
+        <h2 className="dialogTitle">Login</h2>
+        <DialogContent className="dialogContent" style={{ padding: "20px" }}>
+          <TextField
+            sx={{
+              width: "90%",
+              margin: "8px auto",
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5c1302", // Cor da borda quando focado
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#5c1302", // Cor do label quando focado
+              },
+            }}
+            label="E-mail"
+            placeholder="Informe seu e-mail"
+            value={values.email}
+            onChange={handleChange}
+            name="email"
+            type="email"
+            fullWidth
+            variant="outlined"
+          />
+          <TextField
+            sx={{
+              width: "90%",
+              margin: "8px auto",
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5c1302", // Cor da borda quando focado
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#5c1302", // Cor do label quando focado
+              },
+            }}
+            label="Senha"
+            placeholder="Informe sua senha"
+            value={values.senha}
+            onChange={handleChange}
+            name="senha"
+            type="password"
+            fullWidth
+            variant="outlined"
+          />
+        </DialogContent>
+
+        <DialogActions style={{ padding: "0px 20px 20px" }}>
+          <button onClick={handleLogin} className="buttonBag">
+            Fazer Login
           </button>
         </DialogActions>
       </Dialog>

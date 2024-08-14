@@ -8,6 +8,8 @@ import { Cardapio } from "./pages/Cardapio/Cardapio";
 import { Cozinha } from "./pages/Cozinha";
 import Pedidos from "./pages/Pedidos/indes";
 import { HeaderPedidos } from "./components/HeaderPedidos";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AppContent = () => {
   const location = useLocation();
@@ -30,6 +32,7 @@ function App() {
   return (
     <Router>
       <AppContent />
+      <ToastContainer />
     </Router>
   );
 }
