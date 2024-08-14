@@ -177,3 +177,18 @@
   padding: 4px;
   justify-content: flex-end;
 }
+
+.linkLogin {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.linkLogin a {
+  text-decoration: none;
+  color: #374151;
+}
+
+.linkLogin a:hover {
+  color: #a59c9c;
+}

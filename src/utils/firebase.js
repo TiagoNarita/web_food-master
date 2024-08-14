@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get } from "firebase/database";
-
+import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyAVqCOLA5YjfZZ57OXYZH-WJ3B4zOecN-c",
   authDomain: "web-food-17212.firebaseapp.com",
@@ -16,4 +16,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+export const auth = getAuth(app);
 export { database };

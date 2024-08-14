@@ -10,7 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./styles.css";
 import { toast } from "react-toastify";
 import { database } from "../../utils/firebase";
-import { ref, push } from "firebase/database"; // Importa funções necessárias
+import { ref, push, get, child } from "firebase/database"; // Importa funções necessárias
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
@@ -99,25 +99,46 @@ export const HeaderPedidos = () => {
 
   const handleLogin = () => {
     console.log(values);
-    const { email, senha } = values;
-
-    signInWithEmailAndPassword(auth, email, senha)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Login bem-sucedido:", user);
-        toast.success("Login bem-sucedido!");
-        setUser(user);
-        setOpenLogin(false);
+    const dbRef = ref(database);
+    get(child(dbRef, `users`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const users = snapshot.val();
+          const foundUser = Object.values(users).find(
+            (user) => user.email === values.email && user.senha === values.senha
+          );
+          if (foundUser) {
+            toast.success("Login realizado com sucesso!");
+            console.log(foundUser);
+            setOpenLogin(false);
+            setUser(foundUser);
+            // Aqui você pode definir o estado do usuário ou redirecionar para outra página
+          } else {
+            toast.error("E-mail ou senha incorretos.");
+          }
+        } else {
+          toast.error("Nenhum usuário encontrado.");
+        }
       })
       .catch((error) => {
-        console.error("Erro ao fazer login:", error);
-        toast.error("Email ou senha inválidos");
+        toast.error("Erro ao buscar usuários: " + error.message);
       });
   };
 
   const handleOpenLoginModal = () => {
     setOpen(false); // Fecha o modal de cadastro
     setOpenLogin(true); // Abre o modal de login
+    setValues({
+      phoneNumber: "",
+      name: "",
+      email: "",
+      senha: "",
+    });
+  };
+
+  const handleOpenCadastroModal = () => {
+    setOpenLogin(false); // Abre o modal de login
+    setOpen(true); // Fecha o modal de cadastro
     setValues({
       phoneNumber: "",
       name: "",
@@ -141,7 +162,7 @@ export const HeaderPedidos = () => {
             <span>Pedidos</span>
           </button>
         </Link>
-        <Link to="/pedidos" className="navLink">
+        <Link to="/faleConosco" className="navLink">
           <button className="navButton">
             <ShoppingCartIcon />
             <span>Fale conosco</span>
@@ -266,7 +287,7 @@ export const HeaderPedidos = () => {
             }}
             variant="outlined"
           />
-          <div>
+          <div className="linkLogin">
             <a href="#" onClick={handleOpenLoginModal}>
               Já possui cadastro?
             </a>
@@ -333,6 +354,11 @@ export const HeaderPedidos = () => {
             fullWidth
             variant="outlined"
           />
+          <div className="linkLogin">
+            <a href="#" onClick={handleOpenCadastroModal}>
+              Quero me cadastrar
+            </a>
+          </div>
         </DialogContent>
 
         <DialogActions style={{ padding: "0px 20px 20px" }}>
