@@ -1,0 +1,22 @@
+.faleConoscoContainer {
+  padding: 20px;
+  padding-top: 100px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.faleConoscoForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitButton {
+  background-color: #5c1302;
+  color: #fff;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #3e0e01;
+}
