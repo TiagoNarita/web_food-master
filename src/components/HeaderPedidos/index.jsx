@@ -6,6 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import PropTypes from "prop-types";
 import { Dialog, DialogContent, DialogActions, TextField, IconButton } from "@mui/material";
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import CloseIcon from "@mui/icons-material/Close";
 import "./styles.css";
 import { toast } from "react-toastify";
@@ -165,7 +166,7 @@ export const HeaderPedidos = ({ user, setUser }) => {
         </Link>
         <Link to="/faleConosco" className="navLink">
           <button className="navButton">
-            <ShoppingCartIcon />
+            <ContactSupportIcon />
             <span>Fale conosco</span>
           </button>
         </Link>

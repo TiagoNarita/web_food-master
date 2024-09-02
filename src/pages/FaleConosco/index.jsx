@@ -58,54 +58,60 @@ export const FaleConosco = ({ user }) => {
   };
 
   return (
-    <div className="faleConoscoContainer">
-      <h2>Fale Conosco</h2>
-      <form className="faleConoscoForm" noValidate autoComplete="off">
-        <TextField
-          label="Assunto"
-          name="assunto"
-          value={formData.assunto}
-          onChange={handleChange}
-          fullWidth
-          variant="outlined"
-          margin="dense"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "&.Mui-focused fieldset": {
-                borderColor: "#5c1302",
+    <>
+      <header className="header-cardapio headerFale">
+        <h2>Fale conosco</h2>
+        <h3>Esclareça ou tire qualquer duvida que tenha tido com nosso trabalho</h3>
+      </header>
+      <img src={"/images/footer.webp"} alt="Burger" className="footer-burguer"></img>
+      <div className="faleConoscoContainer">
+        <form className="faleConoscoForm" noValidate autoComplete="off">
+          <TextField
+            label="Assunto"
+            name="assunto"
+            value={formData.assunto}
+            onChange={handleChange}
+            fullWidth
+            variant="outlined"
+            margin="dense"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5c1302",
+                },
               },
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "#5c1302",
-            },
-          }}
-        />
-        <TextField
-          label="Mensagem"
-          name="mensagem"
-          value={formData.mensagem}
-          onChange={handleChange}
-          fullWidth
-          variant="outlined"
-          margin="dense"
-          multiline
-          rows={4}
-          sx={{
-            marginBottom: "30px",
-            "& .MuiOutlinedInput-root": {
-              "&.Mui-focused fieldset": {
-                borderColor: "#5c1302",
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#5c1302",
               },
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "#5c1302",
-            },
-          }}
-        />
-        <button type="button" onClick={handleSubmit} variant="contained" className="buttonBag">
-          Enviar
-        </button>
-      </form>
-    </div>
+            }}
+          />
+          <TextField
+            label="Mensagem"
+            name="mensagem"
+            value={formData.mensagem}
+            onChange={handleChange}
+            fullWidth
+            variant="outlined"
+            margin="dense"
+            multiline
+            rows={4}
+            sx={{
+              marginBottom: "30px",
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5c1302",
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#5c1302",
+              },
+            }}
+          />
+          <button type="button" onClick={handleSubmit} variant="contained" className="buttonBag">
+            Enviar
+          </button>
+        </form>
+      </div>
+    </>
   );
 };

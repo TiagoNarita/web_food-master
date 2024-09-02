@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
-
 import { Footer } from "../../components/Footer";
 import { database } from "../../utils/firebase";
 import { get, ref } from "firebase/database";
 import { Loader } from "../../components/Loader";
-import { Box, CircularProgress } from "@mui/material";
 
 export const Cardapio = () => {
   const [burgers, setBurgers] = useState([]);
@@ -17,7 +15,9 @@ export const Cardapio = () => {
         const snapshot = await get(dbRef);
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setBurgers(data);
+          // Transforma em array se não for
+          const burgersArray = Array.isArray(data) ? data : Object.values(data);
+          setBurgers(burgersArray);
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -29,7 +29,7 @@ export const Cardapio = () => {
 
   return (
     <div className="App-cardapio">
-      {burgers.length == 0 ? (
+      {burgers.length === 0 ? (
         <div className="loaderContainer">
           <Loader />
         </div>

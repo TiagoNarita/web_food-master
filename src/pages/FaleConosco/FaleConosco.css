@@ -1,6 +1,6 @@
 .faleConoscoContainer {
   padding: 20px;
-  padding-top: 100px;
+
   max-width: 600px;
   margin: 0 auto;
 }
@@ -19,4 +19,8 @@
 
 .submitButton:hover {
   background-color: #3e0e01;
+}
+
+.headerFale {
+  padding-top: 10px;
 }

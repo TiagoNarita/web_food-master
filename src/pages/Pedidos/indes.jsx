@@ -12,6 +12,7 @@ import { Cart } from "../../components/Cart";
 import { database } from "../../utils/firebase";
 import { get, ref, set, push, update, remove } from "firebase/database";
 import { Loader } from "../../components/Loader";
+import PropTypes from "prop-types";
 
 const Header = () => {
   return (
@@ -20,7 +21,7 @@ const Header = () => {
         <h2>FAÇA SEU PEDIDO AQUI</h2>
         <h3>EXPERIMENTE E SE APAIXONE PELA BURGUER HOUSE</h3>
       </header>
-      <img src={"/images/footer.webp"} alt="Burger" className="footerCart"></img>
+      <img src={"/images/footer.webp"} alt="Burger" className="footerCart" />
     </div>
   );
 };
@@ -35,7 +36,7 @@ const Pedidos = ({ user }) => {
     title: "",
     price: "",
     description: "",
-    image: "", // URL da imagem
+    image: "",
   });
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const Pedidos = ({ user }) => {
           setBurgers([]);
         }
       } catch (error) {
-        console.log(error);
+        console.error("Erro ao buscar dados:", error);
         setBurgers([]);
       }
 
@@ -66,7 +67,6 @@ const Pedidos = ({ user }) => {
   }, [user]);
 
   const addToCart = (burger) => {
-    console.log(adm);
     const existingItemIndex = cart.findIndex((item) => item.title === burger.title);
     if (existingItemIndex !== -1) {
       const updatedCart = [...cart];
@@ -140,18 +140,27 @@ const Pedidos = ({ user }) => {
   };
 
   const saveBurger = async () => {
+    // Prevenção de input vazio
+    if (!newBurger.title || !newBurger.price || !newBurger.description || !newBurger.image) {
+      alert("Todos os campos são obrigatórios!");
+      return;
+    }
+
     const burgerToSave = {
       ...newBurger,
-      // Se você ainda estiver usando arquivos locais, pode precisar de código adicional
     };
 
     if (currentBurger) {
       const burgerRef = ref(database, `Menu/${currentBurger.id}`);
       await update(burgerRef, burgerToSave);
+      setBurgers((prevBurgers) =>
+        prevBurgers.map((b) =>
+          b.id === currentBurger.id ? { id: currentBurger.id, ...burgerToSave } : b
+        )
+      );
     } else {
       const newBurgerRef = ref(database, "Menu");
       const newBurgerSnap = await push(newBurgerRef, burgerToSave);
-      // Atualiza a lista de burgers com o novo burger
       setBurgers((prevBurgers) => [...prevBurgers, { id: newBurgerSnap.key, ...burgerToSave }]);
     }
 
@@ -162,10 +171,9 @@ const Pedidos = ({ user }) => {
     try {
       const dbRef = ref(database, `Menu/${burger.id}`);
       await remove(dbRef);
-      // Atualiza a lista de burgers após excluir
       setBurgers((prevBurgers) => prevBurgers.filter((b) => b.id !== burger.id));
     } catch (error) {
-      console.log("Erro ao apagar burger:", error);
+      console.error("Erro ao apagar burger:", error);
     }
   };
 
@@ -183,7 +191,7 @@ const Pedidos = ({ user }) => {
   return (
     <div className="App-pedidos">
       <Header />
-      {adm == false && (
+      {adm && (
         <div className="divButtonAdm">
           <Button
             id="basic-button"
@@ -276,6 +284,13 @@ const Pedidos = ({ user }) => {
       </Modal>
     </div>
   );
+};
+
+Pedidos.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    senha: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Pedidos;

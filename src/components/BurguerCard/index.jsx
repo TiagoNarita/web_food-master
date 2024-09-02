@@ -1,3 +1,4 @@
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Card,
   CardActions,
@@ -9,7 +10,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const BurguerCard = ({ index, burger, addToCart, onDelete, adm }) => {
+export const BurguerCard = ({ index, burger, addToCart, onDelete, onEdit, adm }) => {
   return (
     <div key={index} className="burger-item-cart">
       <Card sx={{ maxWidth: 345 }} key={index}>
@@ -34,12 +35,15 @@ export const BurguerCard = ({ index, burger, addToCart, onDelete, adm }) => {
           <Button sx={{ color: "#601706" }} onClick={() => addToCart(burger)} size="small">
             Adicionar ao carrinho
           </Button>
-          {adm ? (
-            <IconButton sx={{ color: "#d32f2f" }} onClick={() => onDelete(burger)} size="small">
-              <DeleteIcon />
-            </IconButton>
-          ) : (
-            <></>
+          {adm && (
+            <>
+              <IconButton sx={{ color: "#fbc02d" }} onClick={() => onEdit(burger)} size="small">
+                <EditIcon />
+              </IconButton>
+              <IconButton sx={{ color: "#d32f2f" }} onClick={() => onDelete(burger)} size="small">
+                <DeleteIcon />
+              </IconButton>
+            </>
           )}
         </CardActions>
       </Card>
