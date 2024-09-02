@@ -34,14 +34,14 @@ TextMaskCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export const HeaderPedidos = () => {
+export const HeaderPedidos = ({ user, setUser }) => {
   const [values, setValues] = useState({
     phoneNumber: "",
     name: "",
     email: "",
     senha: "",
   });
-  const [user, setUser] = useState({});
+
   const [open, setOpen] = useState(false); // Estado para o modal de cadastro
   const [openLogin, setOpenLogin] = useState(false); // Estado para o modal de login
 
@@ -113,6 +113,7 @@ export const HeaderPedidos = () => {
             setOpenLogin(false);
             setUser(foundUser);
             // Aqui você pode definir o estado do usuário ou redirecionar para outra página
+            console.log(user);
           } else {
             toast.error("E-mail ou senha incorretos.");
           }

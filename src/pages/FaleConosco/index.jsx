@@ -27,9 +27,20 @@ export const FaleConosco = ({ user }) => {
       return;
     }
 
+    if (!user.name) {
+      {
+        console.log("nao existe um user ");
+        toast.error("Você não está logado, faça o login primeiro!", {
+          position: "top-center",
+          theme: "colored",
+        });
+        return;
+      }
+    }
+
     const contatoRef = ref(database, "contatos");
     push(contatoRef, {
-      usuario: user ? { id: user.id, name: user.name } : null, // Inclui informações do usuário se estiver logado
+      usuario: { name: user.name, email: user.email }, // Inclui informações do usuário se estiver logado
       assunto: formData.assunto,
       mensagem: formData.mensagem,
       data: new Date().toLocaleString(),
@@ -80,6 +91,7 @@ export const FaleConosco = ({ user }) => {
           multiline
           rows={4}
           sx={{
+            marginBottom: "30px",
             "& .MuiOutlinedInput-root": {
               "&.Mui-focused fieldset": {
                 borderColor: "#5c1302",
@@ -90,9 +102,9 @@ export const FaleConosco = ({ user }) => {
             },
           }}
         />
-        <Button onClick={handleSubmit} variant="contained" className="submitButton">
+        <button type="button" onClick={handleSubmit} variant="contained" className="buttonBag">
           Enviar
-        </Button>
+        </button>
       </form>
     </div>
   );
